@@ -29,6 +29,8 @@ Users can retrieve necessary reference data about their uploaded items to allow 
 
 ## The DApp Gallery IPFS
 
+[Web site](https://gallery-ipfs.web.app)
+
 <img src="./doc/img/homePage.png" width="600" />
 
 This project is an Ethereum Decentralized Application using React, React Router and Material-UI.  
@@ -37,6 +39,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This DApp will use [Metamask](https://metamask.io/) browser addon to manage send transaction.
 
 The DApp can uploads **image** or **video** files in IPFS network, and store the IPFS hash on the blockchain.
+
+### Smart Contracts
+
+* I create the `GalleryContract.sol`
+* I create 2 libraries: `SafeMath8.sol` and `SafeMath256.sol`
+* I import the `Ownable.sol` from OpenZeppelin
+* The `Migrations.sol` already exist from truffle
 
 ### Features
 
@@ -74,9 +83,7 @@ and the Ipfs hash and data will be recorded in the smart contract.
 
 Metamask will be the intermediary for the signing of the transaction.
 
-<video width="600">
-    <source src="../master/doc/video/addMedia.mov" type="video/quicktime">
-</video>
+[![Add media demo](https://img.youtube.com/vi/hxgoYYXqogQ/0.jpg)](https://www.youtube.com/watch?v=hxgoYYXqogQ)
 
 #### All my medias
 
@@ -95,6 +102,8 @@ From a IPFS hash or a ethereum address, the data found will be display into the 
 * From a address, the list of IPFS hashes is display, and be clicking on the detail page will open.
 
 If not, or if hash or address are wrong, a Not Found title is display.
+
+[![Search media demo](https://img.youtube.com/vi/3WVcohmqFNw/0.jpg)](https://youtu.be/3WVcohmqFNw)
 
 ---
 
@@ -185,6 +194,15 @@ npm run migrate
 
 ##### Test
 
+I wrote 7 tests
+
+* To check that the creation of the smart contract is effective, and that the default parameters are correct
+* To check the toggle contract activation, and its well-emitted event
+* To verify the saved media function, and its well-emitted event
+* To verify the retrieve media saved by hash function
+* To verify the retrieve medias saved by owner address function
+* To verify the retrieve part of medias saved by owner address function
+
 - Run smart contract tests
 ```shell
 npm run test:sol
@@ -208,7 +226,7 @@ npm run test:sol
 
 * I chose to use a flag to pre-fill or not the smart contract with some images and videos
 * If you want to pre-fill some data
-  * Into `data` directory, the `medias.js` file contains a list of videos from the videos directory, 
+  * Into `data` directory, the `medias.js` file contains a list of videos from the videos directory,
   and a list of image URLs.
   * The `script/saveMediasOnIpfs.js` must be run to write down the `data/ipfsMedias.json`.
   ```shell
@@ -222,8 +240,9 @@ npm run test:sol
 ```
 npm run migrate:ropsten
 ```
+<img src="./doc/img/ropsten.png" width="600" />
 
-##### Starting the DApp
+#### Starting the DApp
 
 In the project directory, you can run:
 ```
@@ -235,8 +254,8 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Future enhancements
 
+- Add more feature/function smart contract tests
 - Add Administration features (see all users, change maxMediasByOwner, toggle contract activation)
 - Update title and tags
-- Add the contract address in the about page
 - Handle all smart contract errors specially during saved transaction
 - Add others search features (date interval, title, tags, type of item)

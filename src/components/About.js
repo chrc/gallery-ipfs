@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   OFF: {
     background: 'red',
   },
+  contractAddress: {
+    margin: 0,
+  },
   grid: {
     maxWidth: 800,
     width: '100%',
@@ -63,6 +66,8 @@ const useStyles = makeStyles((theme) => ({
 
 function About() {
   const [contractStatus, setContractStatus] = useState('N/A');
+  const [contractAddress, setContractAddress] = useState('');
+
   const [galleryOwnersCount, setGalleryOwnersCount] = useState(0);
   const [galleryMediasCount, setGalleryMediasCount] = useState(0);
   const [lastDateSavedMedia, setLastDateSavedMedia] = useState(null);
@@ -80,6 +85,8 @@ function About() {
       const { GalleryContract } = contracts;
 
       try {
+        setContractAddress(GalleryContract.options.address);
+
         const isActiveContract = await GalleryContract.methods.getActivatedContract.call();
         const tempGalleryOwnersCount = await GalleryContract.methods.getGalleryOwnersCount().call();
         const tempGalleryMediasCount = await GalleryContract.methods.getGalleryMediasCount().call();
@@ -107,22 +114,22 @@ function About() {
         <Typography
           variant="h4"
           align="center"
-          paragraph
           color="primary"
         >
           DApp informations
         </Typography>
-        <Typography
-          className={classes.title}
-          variant="h4"
-          align="center"
-          paragraph
-          color="primary"
-        >
-          Contract status:&nbsp;
-          <span className={classes[contractStatus]}>{contractStatus}</span>
-        </Typography>
-
+        <div>
+          <Typography
+            className={classes.title}
+            variant="h4"
+            align="center"
+            color="primary"
+          >
+            Contract status:&nbsp;
+            <span className={classes[contractStatus]}>{contractStatus}</span>
+          </Typography>
+          <h6 className={classes.contractAddress}>{contractAddress}</h6>
+        </div>
       </div>
 
       <Grid container spacing={3} className={classes.grid}>
